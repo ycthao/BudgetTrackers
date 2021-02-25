@@ -9,3 +9,15 @@ const FILES_TO_CACHE = [
   "/icons/icon-192x192.png",
   "/icons/icon-512x512.png",
 ];
+
+// install
+self.addEventListener("install", function (evt) {});
+
+// activate
+self.addEventListener("activate", function (evt) {});
+
+// fetch
+self.addEventListener("fetch", function (evt) {});
+
+// respond
+evt.respondWith();
