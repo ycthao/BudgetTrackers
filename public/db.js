@@ -1,21 +1,47 @@
-const request = window.indexedDB.open("Budget", 1);
+let db;
+const request = window.indexedDB.open("budget", 1);
 
 request.onupgradeneeded = (event) => {
   const db = event.target.result;
 
-  const budgetStore = db.createObjectStore("Budget", { keyPath: "budgetID" });
-
-  budgetStore.createIndex("statusIndex", "status");
+  db.createObjectStore("pending", { autoIncrement: true });
 };
 
-request.onsuccess = () => {
-  const db = request.result;
-  const transcation = db.transcation(["Budget"], "readwrite");
-  const budgetStore = transcation.objectStore("Budget");
-  const statusIndex = budgetStore.index("statusIndex");
+request.onsuccess = (event) => {
+  db = request.result;
+  if (navigator.onLine) {
+    checkDatabase();
+  }
+};
 
-  const getRequest = budgetStore.get("1");
-  getRequest.onsuccess = () => {
-    console.log(getRequest.result);
+function saveRecord(record) {
+  const transaction = db.transaction(["pending"], "readwrite");
+  const store = transaction.objectStore("pending");
+  store.add(record);
+}
+
+function checkDatabase() {
+  const transaction = db.transaction(["pending"], "readwrite");
+  const store = transaction.objectStore("pending");
+  const getAll = store.getAll();
+  getAll.onsuccess = function () {
+    if (getAll.result.length > 0) {
+      fetch("/api/transaction/bulk", {
+        method: "POST",
+        body: JSON.stringify(getAll.result),
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then(() => {
+          const transaction = db.transaction(["pending"], "readwrite");
+          const store = transaction.objectStore("pending");
+          store.clear();
+        });
+    }
   };
-};
+}
+
+window.addEventListener("online", checkDatabase);
