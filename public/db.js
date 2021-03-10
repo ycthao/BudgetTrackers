@@ -7,3 +7,15 @@ request.onupgradeneeded = (event) => {
 
   budgetStore.createIndex("statusIndex", "status");
 };
+
+request.onsuccess = () => {
+  const db = request.result;
+  const transcation = db.transcation(["Budget"], "readwrite");
+  const budgetStore = transcation.objectStore("Budget");
+  const statusIndex = budgetStore.index("statusIndex");
+
+  const getRequest = budgetStore.get("1");
+  getRequest.onsuccess = () => {
+    console.log(getRequest.result);
+  };
+};
