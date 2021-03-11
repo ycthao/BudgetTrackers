@@ -4,6 +4,8 @@
 
 ## Description
 
+Budget tracker is a simple app that let you keep track of your spending. It is design to let you add deposits and expenses both online and offline. When the app is offline, the webpage will keep track for any submit done and once the system is back online, the app will submit those offline submits once it get back online.
+
 ## Table of Contents
 
 - [Description](#Description)
@@ -20,9 +22,9 @@
 
 - This apps will require node.js and requires all packages listed in package.json file.
 - To download node.js, go to https://nodejs.org/en/ and download the current version.
-- Download server.js or clone repository from https://github.com/ycthao/BudgetTrackers
+- Download or clone repository from https://github.com/ycthao/BudgetTrackers
 - In Visual Studio Code, install all dependencies from the package.json file.
-- Run server.js using node command and opening the link provided once node is run.
+- Run server.js using "npm start" and open the link provided once node is run.
 - Or simply open it directly from Heroku at ...
 
 ## Usage
