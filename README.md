@@ -25,7 +25,7 @@ Budget tracker is a simple app that let you keep track of your spending. It is d
 - Download or clone repository from https://github.com/ycthao/BudgetTrackers
 - In Visual Studio Code, install all dependencies from the package.json file.
 - Run server.js using "npm start" and open the link provided once node is run.
-- Or simply open it directly from Heroku at ...
+- Or simply open it directly from Heroku at https://bcs-hw-budgettracker.herokuapp.com/
 
 ## Usage
 
